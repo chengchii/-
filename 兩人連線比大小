@@ -1,0 +1,65 @@
+from socket import *
+import threading
+import shuffle as sh
+import time
+SERVER = '127.0.0.1' # 伺服器IP地址
+PORT = 5000  
+HEADER = 1024
+ADDR = (SERVER, PORT)
+#DISCONNECT_MESSAGE = '!DISCONNECT'
+FORMAT = 'utf-8' #解碼
+allcards = [] #玩家手牌
+IP = [] #玩家位子
+times = 0 #玩家位子
+
+sh.shuffle(52) #洗牌
+#hand = sh.pleyerpoker(1)
+
+
+def handle_client(addr): #卻人玩家
+    print(f'[NEW CONNETCION]{addr}connected.')
+    user_name = s.recvfrom(1024)
+    print(user_name)
+    #pokerplayer = player(user_name)
+    value = sh.deal_card()
+    cards = sh.getpoker(value)
+    #print(cards)
+    allcards.append(value%4)#判斷大小
+    s.sendto(cards.encode(FORMAT), addr) #告訴玩家牌大小
+    #conn.send('None'.encode(FORMAT))
+    #conn.close()
+    
+    
+def start(times):
+    while True:
+        print(f'伺服器等待連接,IP = {SERVER}')
+        data, addr = s.recvfrom(1024) #等等待連結並確認IP
+        print(data)
+        IP.append(addr) #存取玩家IP
+        #print(f'[ACTIVE CONNETCIONS]{threading.activeCount()}')
+        if times == 1: #卻認為兩個人
+            handle_client(addr)
+            break
+        else:
+            #thread = threading.Thread(target=handle_client, args=(addr))
+            #thread.start()
+            handle_client(addr)
+            times += 1
+    print(allcards[::1])
+    print(IP[::1])
+    if len(allcards) == 2:  #比大小
+        if allcards[0] > allcards[1]:
+            s.sendto('You win'.encode(FORMAT), IP[0])
+            time.sleep(1)
+            s.sendto('You lose'.encode(FORMAT), IP[1])
+            s.close()
+        else:
+            s.sendto('You win'.encode(FORMAT), IP[1])
+            time.sleep(1)
+            s.sendto('You lose'.encode(FORMAT), IP[0])
+            s.close()  
+    
+s = socket(type=SOCK_DGRAM)
+s.bind(ADDR)
+start(times)
+s.close()
