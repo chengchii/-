@@ -56,7 +56,7 @@ def check(c):    #檢查是否有重複元素，避免重複輸入
 def check2(c,b):
     standard = True
     for i in range(len(c)):
-        if int(c[i]) > len(b) or int(c[i]) < 1:
+        if int(c[i]) > len(b) or int(c[i]) < 1 or len(c) < 1:
             standard = False
     return standard
 '''def delete(a,b,c):
@@ -159,22 +159,24 @@ def main():
             c = input('請輸入牌型:(若要第一張 --> 1 第二張 --> 2 以此類推，中間以空格間隔)').split()
             #print(c)
             #print(len(c))
-            if(c[0] == 'p'):
-                #print(c)
-                return c
-            while ((len(c)!=1 and len(c)!=2 and len(c)!=5) or(check(c) or not check2(c,b))) :
-                c = input('請重新輸入:').split()
+            if(len(c) != 0):             #避免玩家一直按enter
                 if(c[0] == 'p'):
-                #print(c)
+                    #print(c)
                     return c
-            #print(len(c))
+            while ((len(c)!=1 and len(c)!=2 and len(c)!=5) or(check(c) or not check2(c,b))) :         #避免玩家亂輸入
+                c = input('請重新輸入:').split()
+                if(len(c) != 0):
+                    if(c[0] == 'p'):
+                        #print(c)
+                        return c
+                #print(len(c))
             #print(c)
             #print(check(c))
             d=len(c)
             for i in range(d):
                 #b.remove(b[c[i]])
                 #c[i] = int(valuenumber(b[int(c[i])-1]))
-                c[i] = int(b[int(c[i])-1])
+                c[i] = int(b[int(c[i])-1])                      #把玩家輸入的位置找出來 以0-51表示
                 #c.append(int(valuenumber(b[int(c[i])-1])))
             #print(c)
             return c
@@ -213,7 +215,7 @@ def main():
                     return -1             '''
             temp=[]
             for i in range(len(c)):
-                temp.append(valuenumber(c[i]))
+                temp.append(valuenumber(c[i]))           #轉成純數字(黑桃13 -->13  紅心A --> 1)
             if len(c)==1:
                 return 2
             if len(c)==2:
@@ -557,11 +559,12 @@ while 玩家手牌 != 0
     count = 0
     playerrecord = [0,0,0]   #0--> 有出牌     1--> pass
     while len(player1total) !=0 or len(playertotal) !=0 :
-
+        
+        print('player_1',a,player_1)
         print(a,'出牌')
         userinputarray = player_2.receive(playertotal,userinputarray)    #收第一位玩家訊息
         print('userinputarray',userinputarray)
-        if(playerrecord[1] == 1 and playerrecord[2] == 0):                       #若第二位玩家的狀態為1 (pass) 則把狀態改回0 把e清空
+        if(playerrecord[1] == 1 and playerrecord[2] == 1):                       #若第二位玩家的狀態為1 (pass) 則把狀態改回0 把e清空
             while(userinputarray[0] == 'p'):
                 print('你不能pass了,輪到你出牌!')
                 userinputarray = player_2.receive(playertotal,userinputarray)  
@@ -580,11 +583,15 @@ while 玩家手牌 != 0
                 returnvalue = player_2.judge(userinputarray)         '''#send值
             while (player_2.compare(e,userinputarray,returnvalue,returnvalue,playertotal,player_1) == -1):
                 userinputarray = player_2.receive(playertotal,userinputarray)
+                if (userinputarray[0] == 'p'):
+                        playerrecord[0] = 1                         #把第一位玩家的狀態設為1
+                        print(a,'pass!') 
+                        #continue
                 returnvalue = player_2.judge(userinputarray)     #send值
                 player_2.compare(e,userinputarray,returnvalue,returnvalue,playertotal,player_1)
          
             print('e',e)
-            print('player_1',b,player_1)                 
+            print('player_1',a,player_1)                 
        
         else:
             if (userinputarray[0] == 'p'):
@@ -599,13 +606,18 @@ while 玩家手牌 != 0
                 while (t == -1):
                     #print('enter')
                     userinputarray = player_2.receive(playertotal,userinputarray)
+                    if (userinputarray[0] == 'p'):
+                        playerrecord[0] = 1                         #把第一位玩家的狀態設為1
+                        print(a,'pass!') 
+                        #continue
                     returnvalue = player_2.judge(userinputarray)     #send值
                     #print('l')
                     t = player_2.compare(e,userinputarray,returnvalue,returnvalue,playertotal,player_1)
             
             print('e',e)                                         #檢查
             print('player_1',a,player_1)                         #剩下的手牌
-        
+            
+        print('player_3',b,player_3) 
         print(b,'出牌')
         userinputarray2 = player_2.receive(player1total,userinputarray2)   #收第二位玩家訊息
         if(playerrecord[0] == 1 and playerrecord[2] == 1):                       #若第一位玩家的狀態為1 (pass) 則把狀態改回0 把e清空
@@ -621,7 +633,12 @@ while 玩家手牌 != 0
             while (t == -1):
                 #print('enter')
                 userinputarray2 = player_2.receive(player1total,userinputarray2)
+                if (userinputarray2[0] == 'p'):
+                        playerrecord[1] = 1                         #把第二位玩家的狀態設為1
+                        print(b,'pass!') 
+                        #continue
                 returnvalue2 = player_2.judge(userinputarray2)     #send值
+                
                 #print('l')
                 t = player_2.compare(e,userinputarray2,returnvalue,returnvalue2,player1total,player_3)
             print('e',e)
@@ -649,8 +666,9 @@ while 玩家手牌 != 0
                     #print('l')
                         t = player_2.compare(e,userinputarray2,returnvalue,returnvalue2,player1total,player_3)
                 print('e',e)
-                print('player_3',b,player_3)                 
-        
+                print('player_3',b,player_3)          
+                       
+        print('player_5',c,player_5) 
         print(c,'出牌')
         userinputarray3 = player_2.receive(player2total,userinputarray3)   #收第二位玩家訊息
         if(playerrecord[0] == 1 and playerrecord[1] == 1):                       #若第一位玩家的狀態為1 (pass) 則把狀態改回0 把e清空
@@ -666,11 +684,15 @@ while 玩家手牌 != 0
             while (t == -1):
                 #print('enter')
                 userinputarray3 = player_2.receive(player2total,userinputarray3)
+                if (userinputarray3[0] == 'p'):
+                        playerrecord[2] = 1                         #把第三位玩家的狀態設為1
+                        print(c,'pass!') 
+                        #continue
                 returnvalue3 = player_2.judge(userinputarray3)     #send值
                 #print('l')
                 t = player_2.compare(e,userinputarray3,returnvalue2,returnvalue3,player2total,player_5)
             print('e',e)
-            print('player_5',b,player_5)                 
+            print('player_5',c,player_5)                 
        
             #continue
         else:
@@ -685,6 +707,10 @@ while 玩家手牌 != 0
                 while (t == -1):
                     #print('enter')
                     userinputarray3 = player_2.receive(player2total,userinputarray3)
+                    if (userinputarray3[0] == 'p'):
+                        playerrecord[2] = 1                         #把第三位玩家的狀態設為1
+                        print(c,'pass!') 
+                        #continue
                     returnvalue3 = player_2.judge(userinputarray3)     #send值
                     #print('l')
                     t = player_2.compare(e,userinputarray3,returnvalue2,returnvalue3,player2total,player_5)
