@@ -46,6 +46,23 @@ def check2(c,b):
         if int(c[i]) > len(b) or int(c[i]) < 1 or len(c) < 1:
             standard = False
     return standard
+'''def check3(c):
+    if len(c) == 1:
+        if c[0] == 'p':
+            return True
+        elif c[0].isdigit:
+            print(c[0])
+            print('result')
+            return True
+        else:
+            return False
+    else:    
+        for i in range(len(c)):
+            if ~c[i].isdigit():
+                return False
+        
+        return True'''
+    
  
 #先發兩張牌給玩家
 
@@ -74,8 +91,16 @@ def main():
                 if(c[0] == 'p'):
                     #print(c)
                     return c
-            while ((len(c)!=1 and len(c)!=2 and len(c)!=5) or(check(c) or not check2(c,b))) :         #避免玩家亂輸入
+            '''print(check3(c))
+            while(check3(c) == False):
+                print(check3(c))
                 c = input('請重新輸入:').split()
+            print('test')'''
+            while ((len(c)!=1 and len(c)!=2 and len(c)!=5)  or (check(c) or not check2(c,b))) :         #避免玩家亂輸入
+                c = input('請重新輸入:').split()
+                #print(check3(c))
+                #print((len(c)!=1 and len(c)!=2 and len(c)!=5))
+                #print((check(c) or not check2(c,b)))
                 if(len(c) != 0):
                     if(c[0] == 'p'):
                         #print(c)
@@ -451,7 +476,11 @@ def main():
                     t = player_2.compare(e,userinputarray,returnvalue,returnvalue,playertotal,player_1)
             
                 print('e',e)
-                print('player_1',a,player_1)          
+                print('player_1',a,player_1)
+                if len(playertotal) == 1:
+                    print('player_1',a,'只剩一張!!')
+                elif len(playertotal) == 0:
+                    break         
                        
             elif(playerrecord[2] == 1):              #若上一個玩家pass
                 if (userinputarray[0] == 'p'):
@@ -478,31 +507,37 @@ def main():
                             t = player_2.compare(e,userinputarray,returnvalue2,returnvalue,playertotal,player_1)
                 print('e',e)
                 print('player_1',a,player_1)  
-        
+                if len(playertotal) == 1:
+                    print('player_1',a,'只剩一張!!')
+                elif len(playertotal) == 0:
+                    break         
+                       
             else:
-                if (userinputarray[0] == 'p'):
-                    #count += 1
-                    playerrecord[0] = 1                         #把第一位玩家的狀態設為1
-                    print(a,'pass!')
-                    print('userinputarray',userinputarray)
-                elif count == 0:
+                if count == 0:
                     print('第一',returnvalue3)
+                    while(userinputarray[0] == 'p'):
+                        print('你是第一個出牌的,不要pass啦!')
+                        userinputarray = player_2.receive(playertotal,userinputarray)
                     returnvalue = player_2.judge(userinputarray)         #send值
                     t = player_2.compare(e,userinputarray,returnvalue,returnvalue,playertotal,player_1)
                     #print(t)
                     while (t == -1):
                         #print('enter')
                         userinputarray = player_2.receive(playertotal,userinputarray)
-                        if (userinputarray[0] == 'p'):
-                            playerrecord[0] = 1                         #把第一位玩家的狀態設為1
-                            print(a,'pass!') 
-                            break
-                            #continue
-                        else:
-                            returnvalue = player_2.judge(userinputarray)     #send值
-                            #print('l')
-                            t = player_2.compare(e,userinputarray,returnvalue,returnvalue,playertotal,player_1)
+                        while(userinputarray[0] == 'p'):
+                            print('你是第一個出牌的,不要pass啦!')
+                            userinputarray = player_2.receive(playertotal,userinputarray)
+                        
+                        returnvalue = player_2.judge(userinputarray)     #send值
+                        #print('l')
+                        t = player_2.compare(e,userinputarray,returnvalue,returnvalue,playertotal,player_1)
                     count = 1
+                elif (userinputarray[0] == 'p'):
+                    #count += 1
+                    playerrecord[0] = 1                         #把第一位玩家的狀態設為1
+                    print(a,'pass!')
+                    print('userinputarray',userinputarray)
+               
                 
                 else:
                     print('後來',returnvalue3)
@@ -524,7 +559,11 @@ def main():
                 
                 print('e',e)                                         #檢查
                 print('player_1',a,player_1)                         #剩下的手牌
-                
+                if len(playertotal) == 1:
+                    print('player_1',a,'只剩一張!!')
+                elif len(playertotal) == 0:
+                    break         
+                       
             print('player_3',b,player_3) 
             print(b,'出牌')
             userinputarray2 = player_2.receive(player1total,userinputarray2)   #收第二位玩家訊息
@@ -550,7 +589,11 @@ def main():
                     t = player_2.compare(e,userinputarray2,returnvalue,returnvalue2,player1total,player_3)
                 print('e',e)
                 print('player_3',b,player_3)        
-                
+                if len(player1total) == 1:
+                    print('player_3',b,'只剩一張!!')
+                elif len(player1total) == 0:
+                    break         
+                       
             elif(playerrecord[0] == 1):              #若上一個玩家pass
                 if (userinputarray2[0] == 'p'):
                     playerrecord[1] = 1                         #把第二位玩家的狀態設為1
@@ -576,7 +619,10 @@ def main():
                             t = player_2.compare(e,userinputarray2,returnvalue2,returnvalue3,player1total,player_3)
                 print('e',e)
                 print('player_3',b,player_3)         
-        
+                if len(player1total) == 1:
+                    print('player_3',b,'只剩一張!!')
+                elif len(player1total) == 0:
+                    break 
                 #continue
             else:
                 if (userinputarray2[0] == 'p'):
@@ -599,8 +645,12 @@ def main():
                             returnvalue2 = player_2.judge(userinputarray2)     #send值
                         #print('l')
                             t = player_2.compare(e,userinputarray2,returnvalue,returnvalue2,player1total,player_3)
-                    print('e',e)
-                    print('player_3',b,player_3)          
+                print('e',e)
+                print('player_3',b,player_3)      
+                if len(player1total) == 1:
+                    print('player_3',b,'只剩一張!!')
+                elif len(player1total) == 0:
+                    break     
                         
             print('player_5',c,player_5) 
             print(c,'出牌')
@@ -627,6 +677,10 @@ def main():
                     t = player_2.compare(e,userinputarray3,returnvalue2,returnvalue3,player2total,player_5)
                 print('e',e)
                 print('player_5',c,player_5)        
+                if len(player2total) == 1:
+                    print('player_5',c,'只剩一張!!')
+                elif len(player2total) == 0:
+                    break 
                 
             elif(playerrecord[1] == 1):              #若上一個玩家pass
                 if (userinputarray3[0] == 'p'):
@@ -653,7 +707,10 @@ def main():
                             t = player_2.compare(e,userinputarray3,returnvalue,returnvalue3,player2total,player_5)
                 print('e',e)
                 print('player_5',c,player_5)  
-                 
+                if len(player2total) == 1:
+                    print('player_5',c,'只剩一張!!')
+                elif len(player2total) == 0:
+                    break
                 #continue
             else:
                 if (userinputarray3[0] == 'p'):
@@ -676,8 +733,12 @@ def main():
                             returnvalue3 = player_2.judge(userinputarray3)     #send值
                             #print('l')
                             t = player_2.compare(e,userinputarray3,returnvalue2,returnvalue3,player2total,player_5)
-                    print('e',e)
-                    print('player_5',c,player_5)     
+                print('e',e)
+                print('player_5',c,player_5)
+                if len(player2total) == 1:
+                    print('player_5',c,'只剩一張!!')
+                elif len(player2total) == 0:
+                    break     
     elif status ==2:
         while len(player1total) !=0 and len(playertotal) !=0 and len(player2total) !=0 :
             
@@ -734,11 +795,10 @@ def main():
         
                 #continue
             else:
-                if (userinputarray2[0] == 'p'):                 #第二位玩家pass
-                    playerrecord[1] = 1                         #把第二位玩家的狀態設為1
-                    print(b,'pass!') 
-                    #continue           
-                elif(count == 0):
+                if (count == 0):
+                    while(userinputarray2[0] == 'p'):
+                        print('你是第一個出牌的,不要pass啦!')
+                        userinputarray2 = player_2.receive(player1total,userinputarray2)
                     returnvalue2 = player_2.judge(userinputarray2)
                     print(returnvalue2)
                     t = player_2.compare(e,userinputarray2,returnvalue2,returnvalue2,player1total,player_3)
@@ -746,16 +806,17 @@ def main():
                     while (t == -1):
                         print(t)
                         userinputarray2 = player_2.receive(player1total,userinputarray2)
-                        if (userinputarray2[0] == 'p'):
-                            playerrecord[1] = 1                         #把第二位玩家的狀態設為1
-                            print(b,'pass!') 
-                            break
-                            #continue
-                        else:
-                            returnvalue2 = player_2.judge(userinputarray2)     #send值
+                        while(userinputarray2[0] == 'p'):
+                            print('你是第一個出牌的,不要pass啦!')
+                            userinputarray2 = player_2.receive(player1total,userinputarray2)
+                        returnvalue2 = player_2.judge(userinputarray2)     #send值
                         #print('l')
-                            t = player_2.compare(e,userinputarray2,returnvalue2,returnvalue2,player1total,player_3)
-                    count = 1
+                        t = player_2.compare(e,userinputarray2,returnvalue2,returnvalue2,player1total,player_3)
+                    count = 1      
+                elif(userinputarray2[0] == 'p'):                 #第二位玩家pass
+                    playerrecord[1] = 1                         #把第二位玩家的狀態設為1
+                    print(b,'pass!') 
+                    #continue     
                 else:
                     returnvalue2 = player_2.judge(userinputarray2)
                     print(returnvalue2)
@@ -993,27 +1054,29 @@ def main():
         
                 #continue
             else:
-                if (userinputarray3[0] == 'p'):
-                    playerrecord[2] = 1                         #把第二位玩家的狀態設為1
-                    print(c,'pass!') 
-                    #continue               
-                elif(count == 0):
+                if (count == 0):
+                    while(userinputarray3[0] == 'p'):
+                        print('你是第一個出牌的,不要pass啦!')
+                        userinputarray3 = player_2.receive(player2total,userinputarray3)
                     returnvalue3 = player_2.judge(userinputarray3)
                     t = player_2.compare(e,userinputarray3,returnvalue3,returnvalue3,player2total,player_5)
                     print(t)
                     while (t == -1):
                         #print('enter')
                         userinputarray3 = player_2.receive(player2total,userinputarray3)
-                        if (userinputarray3[0] == 'p'):
-                            playerrecord[2] = 1                         #把第三位玩家的狀態設為1
-                            print(c,'pass!') 
-                            break
-                            #continue
-                        else:
-                            returnvalue3 = player_2.judge(userinputarray3)     #send值
-                            #print('l')
-                            t = player_2.compare(e,userinputarray3,returnvalue3,returnvalue3,player2total,player_5)
-                    count = 1 
+                        while(userinputarray3[0] == 'p'):
+                            print('你是第一個出牌的,不要pass啦!')
+                            userinputarray3 = player_2.receive(player2total,userinputarray3)
+                         
+                         
+                        returnvalue3 = player_2.judge(userinputarray3)     #send值
+                        #print('l')
+                        t = player_2.compare(e,userinputarray3,returnvalue3,returnvalue3,player2total,player_5)
+                    count = 1           
+                elif (userinputarray3[0] == 'p'):
+                    playerrecord[2] = 1                         #把第二位玩家的狀態設為1
+                    print(c,'pass!') 
+                    #continue     
                 else:
                     returnvalue3 = player_2.judge(userinputarray3)
                     t = player_2.compare(e,userinputarray3,returnvalue2,returnvalue3,player2total,player_5)
