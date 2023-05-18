@@ -1,6 +1,6 @@
 import socket
 
-HOST = '127.0.0.1'
+HOST = '192.168.0.5'
 PORT = 5000
 
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -10,6 +10,9 @@ client_socket.connect((HOST, PORT))
 def slipper(choice):
     if len(choice) == 0:
         return True
+    if len(choice) == 1 and choice[0] == 'p':
+        return False
+    
     for i in range(len(choice)):
         if not choice[i].isdigit():
             #print(choice[i],choice[i].isdigit())
@@ -18,7 +21,7 @@ def slipper(choice):
         return False
 
 recv = {
-    '1' : '請輸入牌型:(若要第一張 --> 1 第二張 --> 2 以此類推，中間以空格間隔)',
+    '1' : '請輸入牌型:(若要第一張 --> 1 第二張 --> 2 以此類推，中間以空格間隔，若要pass請輸入p )',
     '2' : '請重新輸入:',
 }
 # 接收 "Please enter your name (player1/player2/player3):" 消息
