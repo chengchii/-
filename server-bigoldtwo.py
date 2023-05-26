@@ -625,6 +625,8 @@ def start():
             onlysend(a,'剩下的牌:'+str(player_1))                         #剩下的手牌
             if len(playertotal) == 1:
                 broadcast('[Player1]只剩一張!!')
+            elif len(playertotal) == 2:
+                broadcast('[Player1]還有兩張!!')
             elif len(playertotal) == 0:
                 break         
                         
@@ -715,6 +717,8 @@ def start():
             onlysend(b,'剩下的牌:' + str(player_3))      
             if len(player1total) == 1:
                 broadcast('[Player2]只剩一張!!')
+            elif len(player1total) == 2:
+                broadcast('[Player2]還有兩張!!')
             elif len(player1total) == 0:
                 break     
                         
@@ -804,6 +808,8 @@ def start():
             onlysend(c,'剩下的牌:' + str(player_5))
             if len(player2total) == 1:
                 broadcast('[Player3]只剩一張!!')
+            elif len(player2total) == 2:
+                broadcast('[Player3]還有兩張!!')
             elif len(player2total) == 0:
                 break     
 
@@ -908,6 +914,8 @@ def start():
             onlysend(b,'剩下的牌:' + str(player_3)) 
             if len(player1total) == 1:
                 broadcast('[Player2]只剩一張!!')
+            elif len(player1total) == 2:
+                broadcast('[Player2]還有兩張!!')
             elif len(player1total) == 0:
                 break        
             
@@ -996,6 +1004,8 @@ def start():
             onlysend(c,'剩下的牌:' + str(player_5)) 
             if len(player2total) == 1:
                 broadcast('[Player3]只剩一張!!')
+            elif len(player2total) == 2:
+                broadcast('[Player3]還有兩張!!')
             elif len(player2total) == 0:
                 break
             
@@ -1082,6 +1092,8 @@ def start():
             onlysend(a,'剩下的牌:' + str(player_1))                         #剩下的手牌
             if len(playertotal) == 1:
                 broadcast('[Player1]只剩一張!!')
+            elif len(playertotal) == 2:
+                broadcast('[Player1]還有兩張!!')
             elif len(playertotal) == 0:
                 break
                 
@@ -1188,6 +1200,8 @@ def start():
             onlysend(c,'剩下的牌:' + str(player_5))
             if len(player2total) == 1:
                 broadcast('[Player3]只剩一張!!')
+            elif len(player2total) == 2:
+                broadcast('[Player3]還有兩張!!')
             elif len(player2total) == 0:
                 break  
             
@@ -1276,6 +1290,8 @@ def start():
             onlysend(a,'剩下的牌:' + str(player_1))                     #剩下的手牌
             if len(playertotal) == 1:
                 broadcast('[Player1]只剩一張!!')
+            elif len(playertotal) == 2:
+                broadcast('[Player1]還有兩張!!')
             elif len(playertotal) == 0:
                 break
                 
@@ -1361,17 +1377,19 @@ def start():
             onlysend(b,'剩下的牌:' + str(player_3)) 
             if len(player1total) == 1:
                 broadcast('[Player2]只剩一張!!')
+            elif len(player1total) == 2:
+                broadcast('[Player2]還有兩張!!')
             elif len(player1total) == 0:
                 break    
                     
     if len(playertotal) == 0:
-        broadcast('![Player1] WIN!')
+        broadcast('[Player1] WIN!')
         socket.close()
     elif len(player1total) == 0:    
-        broadcast('![Player2] WIN!')
+        broadcast('[Player2] WIN!')
         socket.close()
     else:
-        broadcast('![Player3] WIN!')
+        broadcast('[Player3] WIN!')
         socket.close()
 
 
