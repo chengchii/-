@@ -1,0 +1,6 @@
+socket
+random
+threading
+ 
+
+python < 3.10.0
