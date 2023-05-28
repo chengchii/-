@@ -1,7 +1,7 @@
 # 大老二三人連線
 
-> 简单描述这个项目是什么。
-[![NPM Version][npm-image]][npm-url]
+> 
+可以讓我們玩大老二
 [![Build Status][travis-image]][travis-url]
 [![Downloads Stats][npm-downloads]][npm-url]
 
