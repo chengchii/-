@@ -18,7 +18,6 @@ python < 3.10.0
 
 ### Installation 安装
 
-通过一步步实例告诉你如何安装部署、怎样运行使用。
 
 Windows:
 
