@@ -12,28 +12,18 @@
 
 想要玩這個遊戲，需要複製我們的程式碼，並且在編輯器上執行，在我們的程式碼中有一個HOST是儲存IP的，記得要改掉(server client都要改)，接著先跑server再跑3個client即可開始遊戲。
 
-### Prerequisites 项目使用條件
+### Prerequisites 項目使用條件
 
 python < 3.10.0
-
-```
-$ pip install -r requirements.txt
-```
 
 ### Installation 安装
 
 通过一步步实例告诉你如何安装部署、怎样运行使用。
 
-OS X & Linux:
-
-```sh
-Give the example
-```
-
 Windows:
 
 ```sh
-Give the example
+ pip install -r requirements.txt
 ```
 
 ### Usage example 使用示例
