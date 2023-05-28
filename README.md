@@ -10,7 +10,7 @@
 
 ## Getting Started 使用指南
 
-项目使用条件、如何安装部署、怎样运行使用以及使用演示
+想要玩這個遊戲，需要複製我們的程式碼，並且在編輯器上執行，在我們的程式碼中有一個HOST是儲存IP的，記得要改掉(server client都要改)，接著先跑server再跑3個client即可開始遊戲。
 
 ### Prerequisites 项目使用条件
 
