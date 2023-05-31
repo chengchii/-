@@ -33,13 +33,13 @@ Windows:
 
 部署到生产环境注意事项。
 
-## Contributing 贡献指南
+## Contributing 貢献指南
 
 Please read [CONTRIBUTING.md](#) for details on our code of conduct, and the process for submitting pull requests to us.
 
 清阅读 [CONTRIBUTING.md](#) 了解如何向这个项目贡献代码
 
-## Release History 版本历史
+## Release History 版本歷史
 
 * 0.2.1
     * CHANGE: Update docs
@@ -48,12 +48,12 @@ Please read [CONTRIBUTING.md](#) for details on our code of conduct, and the pro
 * 0.1.0
     * Work in progress
 
-## Authors 关于作者
+## Authors 關於作者
 
 * **WangYan** - *Initial work* - [WangYan](https://wangyan.org)
 
 查看更多关于这个项目的贡献者，请阅读 [contributors](#) 
 
-## License 授权协议
+## License 授權協議
 
 这个项目 MIT 协议， 请点击 [LICENSE.md](LICENSE.md) 了解更多细节。
