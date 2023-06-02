@@ -1338,13 +1338,16 @@ def start():
                     
     if len(playertotal) == 0:
         broadcast('[Player1] WIN!')
-        socket.close()
+        broadcast('3')
+        shut()
     elif len(player1total) == 0:    
         broadcast('[Player2] WIN!')
-        socket.close()
+        broadcast('3')
+        shut()
     else:
         broadcast('[Player3] WIN!')
-        socket.close()
+        broadcast('3')
+        shut()
 
 
 
@@ -1356,11 +1359,19 @@ server_socket.listen(5)
 connected_clients = []
 connect_clients = {}
 
+def shut():
+    server_socket.close()
+
+def start_game():
+    broadcast('Game is starting.\n')
+    broadcast('Dealing cards...')
+    start()
+
 def sendrev(name,message):
     IP = connect_clients[name]
     IP.send(str(message).encode())
     re = IP.recv(1024).decode()
-    time.sleep(0.5)
+    time.sleep(0.2)
     print(repr(re.split()))
     return re.split()
 
@@ -1382,7 +1393,7 @@ def onlysend(name,message):
         IP.send(str(message).encode())
     else:
         IP.send(message.encode())
-    time.sleep(0.5) 
+    time.sleep(0.2) 
 
 def main():
     while True:
@@ -1414,14 +1425,9 @@ def handle_client(client_socket):
 def broadcast(message):
     for client_socket in connected_clients:
         client_socket.send(message.encode())
-    time.sleep(0.5)
+    time.sleep(0.2)
 
-def start_game():
-    broadcast('Game is starting.\n')
-    broadcast('Dealing cards...')
-    start()
-    #waiting()
+
 
 if __name__ == '__main__':
     main()
-
